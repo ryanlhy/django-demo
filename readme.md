@@ -28,9 +28,7 @@ cd main
 python manage.py runserver
 ```
 
-## Create CRUD Endpoints
-
-Step 1: Add the commented line in `settings.py` within the `main` project folder.
+Step 5: Add the commented line in `settings.py` within the `main` project folder.
 
 ```python
 INSTALLED_APPS = [
@@ -44,7 +42,7 @@ INSTALLED_APPS = [
 ]
 ```
 
-Step 2: In the same `settings.py` file, comment CSRF middleware
+Step 6: In the same `settings.py` file, comment CSRF middleware
 
 ```python
 MIDDLEWARE = [
