@@ -1,5 +1,9 @@
 # Django Demo
 
+## Goals
+
+Expose learners to opinionated framework - this will help learners to tell the differences between opinionated and unopinionated framework based on experience.
+
 ## Quick Setup
 
 Step 1: Setup environment
