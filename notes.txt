@@ -1,0 +1,99 @@
+1. Understanding: token, session, cookie
+
+Question: How to store token securely in web development?
+
+2. Practical implemention of JWT on Django
+
+3. Recap on Project Briefing
+
+
+
+WEB BASED (BROWSER) INTERACTIONS WITH SERVER
+SESSION
+- SESSION ID is randomly generated string (UUID)
+- Represents a user's interaction with the web application
+- Session is also short lived, it is destroyed when you close the browser
+
+COOKIE
+- A place in the browser where you store session ID
+- Cookie is like a transport vehicle to send Session ID from client to server
+
+
+MOBILE BASED INTERACTIONS WITH SERVER
+
+OAuth2 - Authorization Mechanism (WHAT PERMISSION DO YOU HAVE?)
+OpenID (OIDC) - Authentication Mechanism (WHO ARE YOU?)
+
+JWT Json Web Token - Ability to grant access to a subset of the data 
+
+SESSION - basically represent the user, and therefore grant all access to the data
+
+
+
+Refresh Token - Long lived - Refresh token should be stored with utmost security
+Access Token - Short lived - Can be stored in a less secure place temporarily
+
+
+python3 -m venv djangoenv
+source ./djangoenv/bin/activate
+source ./djangoenv/Script/activate
+
+pip install django djangorestframework psycopg2 djangorestframework_simplejwt django_extensions
+
+psycopg2-binary
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+eb Development Must Know
+
+1. Session
+2. Cookie
+3. Frontend Storage
+4. OAuth / Tokenized Authorization (Refresh and Access Token)
+5. OIDC (Open ID Connect)
+
+Main Question: How to securely store token to minimize the impact of security breach
+
+
+
+
+Plan for Implementing JWT Authentication
+
+1. Create a POST /user/signup endpoint to create new user
+2. Create a POST /api/token endpoint to login user and return tokens
+3. Configure rest (app) to check against Authorization Bearer
+4. Further share more about refresh token and access token, and how to securely store them
