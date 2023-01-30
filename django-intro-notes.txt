@@ -1,0 +1,81 @@
+Focus: Exposure to Django Framework 
+
+The experience of Django will help you to differentiate better between opinionated (Django) and unopinionated (ExpressJS) framework.
+
+
+Strongly typed language - Java, C#, TypeScript
+
+Loosely typed language - JavaScript, Python
+
+
+Employee Model
+
+- id:number {PK}
+- name:string
+- job_title:string
+- income:number
+
+1. API Endpoint
+2. Create DB Model (ORM)
+
+3. rest_framework module
+
+
+
+1. Create a Python Environment
+    - Terminal: python3 -m venv djangoenv
+    - Reason: Self contained dependencies and environment
+    - Terminal: source ./djangoenv/bin/activate
+    - Terminal: for windows: source ./djangoenv/Scripts/Activate
+    - Terminal: pip install django
+
+2. Create Django Project and Apps
+    - Terminal: django-admin startproject main
+    - Terminal: django-admin startapp api
+
+
+djangenv: Store all dependencies to this Project
+main: The project folder - it is the axis of multiple Apps
+api: The app where you will implement code
+remember to add this in settings.py, under INSTALLED APPS
+    "api.apps.ApiConfig",
+    "model.apps.ModelConfig"
+
+
+3. Change `default_port` in `runserver.py` to 9000
+search for default_port, and change to 9000
+
+4. Run application
+    - Terminal: python ./main/manage.py runserver
+
+./main
+django-admin startapp model
+
+create database
+create a user
+grant the user permission to the database
+
+Script
+CREATE DATABASE djangodb;
+CREATE USER djangouser WITH PASSWORD 'password';
+GRANT ALL PRIVILEGES ON DATABASE djangodb TO djangouser;
+
+Windows: psql -U postgres
+MacOS: psql postgres
+
+to make...
+python manage.py makemigrations
+
+main -> settings
+install library 
+pip install psycopg2 
+python manage.py migrate
+
+
+
+1. Add () to Employee model BigIntegerField()
+2. python manage.py makemigrations
+3. python manage.py migrate
+4. python manage.py runserver
+
+pip install djangorestframework
