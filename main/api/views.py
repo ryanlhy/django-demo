@@ -19,5 +19,7 @@ class EmployeeView(View):
         
         return JsonResponse(json.loads(json.dumps(model_to_dict(employee))), safe=False)
         
-        
+class PokemonView(View):
+    def get(self, request):
+        return JsonResponse({"message": "Hello from the pokemon api!"}, safe=False)
     
