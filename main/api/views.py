@@ -27,5 +27,8 @@ class PokemonView(View):
         query = request.GET.get("query", "no query") ## Grab query from url query
 
         return JsonResponse({"param": param, "query": query, "data": data})
-    
+
+class TestView(View):
+    def get(self, request):
+        return JsonResponse({"message": "Hello, world! Test worked"})
     
