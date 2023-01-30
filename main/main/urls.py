@@ -31,6 +31,6 @@ urlpatterns = [
     path('employees/', EmployeeView.as_view()), # using default django view
     path('api/token/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('user/signup/', RegisterUsersView.as_view(), name="user-signup"),
-    path('pokemon/', PokemonView.as_view()), # using default pokemon api
+    path('pokemon/<str:param>/', PokemonView.as_view()), # using default pokemon api
 
 ]

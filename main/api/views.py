@@ -6,6 +6,8 @@ from django.core.serializers import serialize
 from .helpers import GetBody
 from django.forms.models import model_to_dict
 import json
+from services.services_tcg import get_data_from_api
+
 
 class EmployeeView(View):
     def get(self, request):
@@ -20,6 +22,10 @@ class EmployeeView(View):
         return JsonResponse(json.loads(json.dumps(model_to_dict(employee))), safe=False)
         
 class PokemonView(View):
-    def get(self, request):
-        return JsonResponse({"message": "Hello from the pokemon api!"}, safe=False)
+    def get(self, request, param):
+        data = get_data_from_api(param)
+        query = request.GET.get("query", "no query") ## Grab query from url query
+
+        return JsonResponse({"param": param, "query": query, "data": data})
+    
     
