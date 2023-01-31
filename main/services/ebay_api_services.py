@@ -1,4 +1,5 @@
 import requests
+from main.settings import ebay_app_id as appId
 
 keyword = "charizard psa 10"
 maxEntries = 10
