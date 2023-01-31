@@ -39,7 +39,7 @@ source ./djangoenv/bin/activate
 source ./djangoenv/Script/activate
 
 pip install django djangorestframework psycopg2 djangorestframework_simplejwt django_extensions
-
+requests
 psycopg2-binary
 
 
