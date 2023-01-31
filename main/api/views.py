@@ -7,6 +7,7 @@ from .helpers import GetBody
 from django.forms.models import model_to_dict
 import json
 from services.services_tcg import get_data_from_api
+from services.ebay_api_services import get_data_from_ebay_api
 
 
 class EmployeeView(View):
@@ -26,6 +27,12 @@ class PokemonView(View):
         data = get_data_from_api(param)
         query = request.GET.get("query", "no query") ## Grab query from url query
 
+        return JsonResponse({"param": param, "query": query, "data": data})
+
+class EbayView(View):
+    def get(self, request, param):
+        data = get_data_from_ebay_api(param)
+        query = request.GET.get("query", "no query") ## Grab query from url query
         return JsonResponse({"param": param, "query": query, "data": data})
 
 class TestView(View):

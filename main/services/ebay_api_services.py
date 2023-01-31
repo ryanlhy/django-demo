@@ -3,8 +3,8 @@ from main.settings import ebay_app_id as appId
 
 keyword = "charizard psa 10"
 maxEntries = 10
-
-def get_data_from_api(keyword, maxEntries):
+#https://svcs.ebay.com/services/search/FindingService/v1?OPERATION-NAME=findItemsByKeywords&SERVICE-VERSION=1.0.0&SECURITY-APPNAME={appid}&RESPONSE-DATA-FORMAT=JSON&REST-PAYLOAD&paginationInput.entriesPerPage=100&keywords=pikachu%22
+def get_data_from_ebay_api(keyword, maxEntries=10):
     url = (
         "http://svcs.ebay.com/services/search/FindingService/v1?"
         f"OPERATION-NAME=findItemsByKeywords&"
@@ -22,7 +22,8 @@ def get_data_from_api(keyword, maxEntries):
             data = response.json()
             if "findItemsByKeywordsResponse" in data:
                 listings = data["findItemsByKeywordsResponse"][0]["searchResult"][0]["item"]
-                return listings
+                # return listings
+                return data
             else:
                 raise Exception("Error: Invalid response data")
         else:
