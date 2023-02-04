@@ -31,7 +31,7 @@ class PokemonView(View):
 
 class EbayView(View):
     def get(self, request, param):
-        data = get_data_from_ebay_api(param)
+        data = get_data_from_ebay_api(param, query)
         query = request.GET.get("query", "no query") ## Grab query from url query
         return JsonResponse({"param": param, "query": query, "data": data})
 
