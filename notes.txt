@@ -36,7 +36,7 @@ Access Token - Short lived - Can be stored in a less secure place temporarily
 
 python3 -m venv djangoenv
 source ./djangoenv/bin/activate
-source ./djangoenv/Script/activate
+source ./djangoenv/Scripts/activate
 
 pip install django djangorestframework psycopg2 djangorestframework_simplejwt django_extensions
 requests
