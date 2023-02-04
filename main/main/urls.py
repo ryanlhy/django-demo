@@ -32,6 +32,6 @@ urlpatterns = [
     path('api/token/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('user/signup/', RegisterUsersView.as_view(), name="user-signup"),
     path('pokemon/<str:param>/', PokemonView.as_view()), # using default pokemon api
-    path('ebay/<str:param>/', EbayView.as_view()), # using default pokemon api
+    path('ebay/<path:param>/', EbayView.as_view()), # using default pokemon api
     path('test/', TestView.as_view()), # testview for testing
 ]

@@ -3,7 +3,7 @@ import requests
 
 def get_data_from_api(set_name):
     # url = f"https://api.pokemontcg.io/v2/cards?q=set.id:{set_name}&page=1&pageSize=2"
-    url = f'https://api.pokemontcg.io/v2/cards?q=name:"{set_name}"&page=1&pageSize=2'
+    url = f'https://api.pokemontcg.io/v2/cards?q=name:"*{set_name}*"&page=1&pageSize=2'
 
     response = requests.get(url)
     if response.status_code == 200:
