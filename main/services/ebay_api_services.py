@@ -1,5 +1,6 @@
 import requests
 from main.settings import ebay_app_id as appId
+import cors
 
 keyword = "charizard psa 10"
 maxEntries = 10
@@ -22,8 +23,8 @@ def get_data_from_ebay_api(keyword, maxEntries=10):
             data = response.json()
             if "findItemsByKeywordsResponse" in data:
                 listings = data["findItemsByKeywordsResponse"][0]["searchResult"][0]["item"]
-                # return listings
-                return data
+                return listings
+                # return data
             else:
                 raise Exception("Error: Invalid response data")
         else:
