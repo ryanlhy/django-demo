@@ -1,8 +1,6 @@
 # Django Demo
 
-## Goals
-
-Expose learners to opinionated framework - this will help learners to tell the differences between opinionated and unopinionated framework based on experience.
+Deployed on [http://ryanlhy.pythonanywhere.com/](http://ryanlhy.pythonanywhere.com/)
 
 ## Quick Setup
 
