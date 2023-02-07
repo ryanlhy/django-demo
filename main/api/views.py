@@ -8,7 +8,7 @@ from django.forms.models import model_to_dict
 import json
 from services.services_tcg import get_data_from_api
 from services.ebay_api_services import get_data_from_ebay_api
-
+from services.ebay_api_services import handle_negative_keywords
 
 class EmployeeView(View):
     def get(self, request):
@@ -32,7 +32,8 @@ class EbayView(View):
     def get(self, request, param):
         query = request.GET.get("query", "no query") ## Grab query from url query
         data = get_data_from_ebay_api(param)
-        return JsonResponse({"param": param, "query": query, "data": data})
+        negative_keywords = handle_negative_keywords("cgc", data)
+        return JsonResponse({"param": param, "query": query, "data": data, "negative_keywords_index": negative_keywords})
 
 class TestView(View):
     def get(self, request):

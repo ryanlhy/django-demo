@@ -1,6 +1,6 @@
 import requests
 from main.settings import ebay_app_id as appId
-import json
+# from main.utils.ebay_data_manipulation import handle_negative_keywords
 
 keyword = "charizard psa 10"
 maxEntries = 10
@@ -24,7 +24,7 @@ def get_data_from_ebay_api(keyword, maxEntries=100):
             # data = json.loads(response.text) #deserialise the data
             if "findItemsByKeywordsResponse" in data:
                 listings = data["findItemsByKeywordsResponse"][0]["searchResult"][0]["item"]
-                listings = handle_negative_keywords("cgc", listings)
+                # listings = handle_negative_keywords("cgc", listings)
                 return listings
                 # return data
             else:
@@ -35,13 +35,12 @@ def get_data_from_ebay_api(keyword, maxEntries=100):
 
         return e
 
-def handle_negative_keywords(negativeKeyword, originalData):
+def handle_negative_keywords(negativeKeyword, listingsData):
     neg_indexes = []
-    for index, item in enumerate(originalData):
+    negativeKeyword.lower()
+    for index, item in enumerate(listingsData):
         title = item["title"][0].lower() # need to do error handling here
+        print(title)
         if negativeKeyword in title.lower():
             neg_indexes.append(index)
-    # append the arr to the originalData
-    originalData.append({"negativeKeyword": neg_indexes})
-    print(originalData)
-    return originalData
+    return neg_indexes
