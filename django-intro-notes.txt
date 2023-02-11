@@ -79,3 +79,6 @@ python manage.py migrate
 4. python manage.py runserver
 
 pip install djangorestframework
+
+to activate djangoenv
+source ./djangoenv/Scripts/Activate

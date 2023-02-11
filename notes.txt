@@ -43,6 +43,10 @@ requests
 psycopg2-binary
 django-environ
 
+Deploying on AWS
+https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create-deploy-python-django.html
+Elastic Beanstalk uses requirements.txt to determine which package to install on the EC2 instances that run your application.
+Create a directory named .ebextensions.
 
 
 
