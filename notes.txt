@@ -38,10 +38,10 @@ python3 -m venv djangoenv
 source ./djangoenv/bin/activate
 source ./djangoenv/Scripts/activate
 
-pip install django djangorestframework psycopg2 djangorestframework_simplejwt django_extensions
+pip install django djangorestframework psycopg2 djangorestframework_simplejwt django_extensions 
 requests
 psycopg2-binary
-
+django-environ
 
 
 
