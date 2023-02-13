@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.views import View 
-from model.models import Employee
+from model.models import Employee, CardSets
 from django.core.serializers import serialize
 from .helpers import GetBody
 from django.forms.models import model_to_dict
@@ -35,6 +35,11 @@ class EbayView(View):
         data = get_data_from_ebay_api(param)
         negative_keywords = handle_negative_keywords("cgc", data)
         return JsonResponse({"param": param, "query": query, "data": data, "negative_keywords_index": negative_keywords})
+
+class CardSetsView(View):
+    def get(self, request):
+        card_sets = CardSets.objects.all()
+        return JsonResponse(json.loads(serialize("json", card_sets)), safe=False)
 
 class TestView(View):
     def get(self, request):
