@@ -29,7 +29,7 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['ryanlhy.pythonanywhere.com', 'localhost']
+ALLOWED_HOSTS = ['ryanlhy.pythonanywhere.com', 'localhost', 'djangoenv1.eba-digg3euv.ap-southeast-1.elasticbeanstalk.com']
 CORS_ORIGIN_ALLOW_ALL = True
 # CORS_ORIGIN_WHITELIST = [    "http://localhost:3000",    "https://vercel.com", "https://cardmatchpro.vercel.app","https://vercel.app"]
 
@@ -92,7 +92,8 @@ DATABASES = {
         'NAME': env('DATABASE_NAME'), 
         'USER': env('DATABASE_USER'), 
         'PASSWORD': env('DATABASE_PASS'),
-        'HOST': '127.0.0.1', 
+        # 'HOST': '127.0.0.1', 
+        'HOST': env('DATABASE_HOST'), 
         'PORT': '5432',
     }
 }
