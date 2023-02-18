@@ -23,6 +23,8 @@ def get_data_from_ebay_api(keyword, maxEntries=100):
             data = response.json()
             # data = json.loads(response.text) #deserialise the data
             if "findItemsByKeywordsResponse" in data:
+                if data["findItemsByKeywordsResponse"][0]["searchResult"][0]["@count"] == "0": # zero results returned
+                    return None
                 listings = data["findItemsByKeywordsResponse"][0]["searchResult"][0]["item"]
                 # listings = handle_negative_keywords("cgc", listings)
                 return listings

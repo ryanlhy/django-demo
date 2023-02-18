@@ -9,6 +9,10 @@ def convert_json_to_dict(data):
     return json.loads(data)
 
 def handle_negative_keywords(negativeKeyword, listingsData):
+    print("listings data:")
+    print(listingsData)
+    if listingsData == None:
+        return []
     neg_indexes = []
     negativeKeyword.lower()
     for index, item in enumerate(listingsData):
