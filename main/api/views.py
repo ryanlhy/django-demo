@@ -9,7 +9,7 @@ import json
 from services.poke_api_services import get_data_from_api
 from services.ebay_api_services import get_data_from_ebay_api
 # from services.ebay_api_services import handle_negative_keywords
-from utils.ebay_data_manipulation import handle_negative_keywords, main_filter_keywords, card_sets1
+from utils.ebay_data_manipulation import handle_negative_keywords, card_sets1, main_response_data_handler
 
 class EmployeeView(View):
     def get(self, request):
@@ -33,11 +33,10 @@ class EbayView(View):
     def get(self, request, param):
         query = request.GET.get("query", "no query") ## Grab query from url query
         param = json.loads(param)
-        data = get_data_from_ebay_api(param["search"])
-        negative_keywords = handle_negative_keywords("cgc", data)
-        # make a check if searchObj exist, then run filter
-        # filter = main_filter_keywords(data, param)
-        return JsonResponse({"param": param, "query": query, "data": data, "negative_keywords_index": negative_keywords, })
+        # data1 = get_data_from_ebay_api(param["search"])
+        # negative_keywords = handle_negative_keywords("cgc", data)
+        data = main_response_data_handler(param)
+        return JsonResponse({"param": param, "query": query, "data": data["ebayData"], "filterCalls": data["filterCalls"] })
 
 class CardSetsView(View):
     def get(self, request):
