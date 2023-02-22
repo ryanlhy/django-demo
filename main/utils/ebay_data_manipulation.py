@@ -3,14 +3,15 @@ from django.core import serializers
 from django.http import JsonResponse
 import json
 from model.models import CardSets
-from utils.data import *
+from utils.data import variation, grading_company, grades, combine_grade, company_and_grade
+from services.ebay_api_services import get_data_from_ebay_api
+
+# define global variables where loops are needed to retrieve data - prevent duplicate calls
 
 def convert_json_to_dict(data):
     return json.loads(data)
 
 def handle_negative_keywords(negativeKeyword, listingsData):
-    print("listings data:")
-    print(listingsData)
     if listingsData == None:
         return []
     neg_indexes = []
@@ -21,10 +22,6 @@ def handle_negative_keywords(negativeKeyword, listingsData):
             neg_indexes.append(index)
     return neg_indexes
 
-
-
-# handle search param - tokenisaiont? break down the param into keywords?
-
 # Test 1: find variation, grading company and grade (required parameters)
 def find_keywords(sentence, keywords_list):
     words = sentence.lower()
@@ -34,12 +31,12 @@ def find_keywords(sentence, keywords_list):
             return False
     return True
 
-def find_which_keywords_exists(sentence, keywords_list):
+def find_which_keywords_exists(sentence, keywords_list1):
     words = sentence.lower()
-    for keyword in keywords_list:
-        if keyword in words:
-            return keyword
-    return False
+    for keyword in keywords_list1:
+        if (keyword in words):
+            return keyword # not sure why function is not breaking out of loop
+    return False 
 
 # def remove_keywords(sentence, keywords_list):
 #     words = sentence.split()
@@ -49,42 +46,92 @@ def find_which_keywords_exists(sentence, keywords_list):
 #             new_sentence.append(word)
 #     return ' '.join(new_sentence)
 
-# function to return true if all keywords that in the sentence
-def filter_keywords(paramSearchQuery, sentence, param, company_and_grade, variation):
+# function to return true if all keywords that in the ebay_title
+def filter_keywords(param_search_query, ebay_title, param, company_and_grade, variation, ebay_id):
+    keywords_list_response = [] # list of keywords that are in the sentence/query
+
     # find out what psa number exist in search query
-    query_grade = find_which_keywords_exists(paramSearchQuery, company_and_grade)
+    query_grade = find_which_keywords_exists(param_search_query, company_and_grade)
 
-    grade_condition_keyword = find_which_keywords_exists(sentence, company_and_grade)
-    variation_keyword = find_which_keywords_exists(sentence, variation)
-    proceed = False # determine if code should break or proceed
-    # must have holo & !reverse holo & PSA & 9
-    if (grade_condition_keyword != False and variation_keyword != False): 
-        proceed = True
+    grade_condition_keyword = find_which_keywords_exists(ebay_title, company_and_grade)
+    # if grade_condition_keyword does not exist in keywords_list_response, then append
+    keywords_list_response.append(grade_condition_keyword)
 
-    if (proceed == True):
+    variation_keyword = find_which_keywords_exists(ebay_title, variation)
+    proceed = False # default to false, if all keywords exist in ebay_title, then return true
+    if (grade_condition_keyword != False and variation_keyword != False):
         # make pokemon api calls and find ... add later
         # extract 3 values from param
-        paramList = [param["name"], param["number"], param["set"]["printedTotal"]]
-        paramList = [str(num).lower() for num in paramList] # lowercase and convert to string
-        print(paramList)
-        # test these 3 parameters exist in sentence: name, number, set.printedTotal
-        proceed = find_keywords(sentence, paramList)
-        print(proceed)
-        return proceed # return true if all keywords exist in sentence
+        param_list = [param["name"], param["number"], param["set"]["printedTotal"]]
+        param_list = [str(num).lower() for num in param_list] # lowercase and convert to string
+        # print(param_list)
+        # test these 3 parameters exist in ebay_title: name, number, set.printedTotal
+        keywords = find_keywords(ebay_title, param_list)
+        return {
+                "keywords":keywords,
+                "keyword_list":{grade_condition_keyword: [ebay_id]},
+                # "keyword_list":keywords_list_response
+                } # return true if all keywords exist in ebay_title, and the keywords that exist in the ebay_title
     else:
-        return False
+        return {
+            "keywords":False,
+            "keyword_list":{}
+            }
 
-def main_filter_keywords(listingsData, param):
-    paramObj = param["searchObj"]
-    paramSearchQuery = param["search"]
-    ebay_Id_filtered = []
+def main_match_exact_keywords(listingsData, param):
+    param_obj = param["searchObj"]
+    param_search_query = param["search"]
+    # ebay_id = param["searchObj"]["itemId"][0]
+    ebay_id_filtered = []
+    keywords_list_response = {} # list of keywords that are in the sentence/query
+
     for index, item in enumerate(listingsData):
         title = item["title"][0].lower()
-        # if 
-        if (filter_keywords(paramSearchQuery, title, paramObj, company_and_grade, variation) == True):
-            ebay_Id_filtered.append(item["itemId"][0])
-    return ebay_Id_filtered
+        ebay_id = item["itemId"][0]
+        # if consist of all keywords, then append to ebay_id_filtered
+        filter_keywords_result = filter_keywords(param_search_query, title, param_obj, company_and_grade, variation, ebay_id)
+        if (filter_keywords_result["keywords"] == True):
+            ebay_id_filtered.append(item["itemId"][0])
+            # check if key in filter_keywords_result["keyword_list"] exists in keywords_list_response dictionary
+            
+            # if it does, then append the ebay_id to the list
+            # if it does not, then create a new key and append the value which is ebay_id to the list
+            for key in filter_keywords_result["keyword_list"]:
+                keywords_list_response.setdefault(key, []).append(ebay_id)
 
+            # if filter_keywords_result["keyword_list"] not in keywords_list_response:
+            # keywords_list_response += (filter_keywords_result["keyword_list"])
+    print("ebay_id_filtered:")    
+    print(ebay_id_filtered)
+    return {"ebay_id_filtered":ebay_id_filtered, "keywords_list_response":keywords_list_response}
+
+# function that returns a list of keywords that exist in the ebay_title
+
+# function that returns a list of negative keywords
+
+# function that collate the responses and returns to views.py
+def main_response_data_handler(param):
+    ebay_data = get_data_from_ebay_api(param["search"])
+    keywords_list_response = [] # list of keywords that are in the sentence/query
+    # check if "searchObj" is in param aka the FE is sending the searchObj
+    if "searchObj" in param:
+        filter_keywords_result = main_match_exact_keywords(ebay_data, param)
+        # filter the data
+        exact_match = filter_keywords_result["ebay_id_filtered"]
+        keywords_list_response = filter_keywords_result["keywords_list_response"]
+        print("keywords_list_response: ", keywords_list_response)
+    else:
+        exact_match = [] # need to create another function that deals with the data without the searchObj
+
+    # dictionary object that returns the data
+    data = {
+        "ebayData": ebay_data,
+        "filterCalls": {
+            "keywordsListResponse": keywords_list_response, 
+            "exactMatch":exact_match
+            },
+    }
+    return data
 
 card_sets1 = CardSets.objects.all()[:1] # get the first object in the db
 card_sets1 = serializers.serialize("python", card_sets1) # convert to python object
