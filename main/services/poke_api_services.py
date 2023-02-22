@@ -11,7 +11,7 @@ def remove_special_characters(string):
 
 def extract_text(string):
     items = string.split()
-    print(items)
+    # print(items)
     new_string = [item for item in items if not item.isdigit()]
     return new_string if new_string else None 
 
@@ -51,7 +51,7 @@ def get_data_from_api(param):
     # url = f"https://api.pokemontcg.io/v2/cards?q=set.id:{set_name}&page=1&pageSize=10"
     # url = f'https://api.pokemontcg.io/v2/cards?q=name:"*{param}*"&page=1&pageSize=10'
     url_new = f'https://api.pokemontcg.io/v2/cards?q={query_string}&page=1&pageSize=10'
-    print(url_new)
+    # print(url_new)
     response = requests.get(url_new)
     if response.status_code == 200:
         return response.json()

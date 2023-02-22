@@ -42,12 +42,19 @@ pip install django djangorestframework psycopg2 djangorestframework_simplejwt dj
 requests
 psycopg2-binary
 django-environ
+Unidecode
+
+Additional Libraries
+not installed yet
+Unidecode - Converts non-ASCII characters to closest ASCII representation
+pip install Unidecode
 
 Deploying on AWS
 https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create-deploy-python-django.html
 Elastic Beanstalk uses requirements.txt to determine which package to install on the EC2 instances that run your application.
 Create a directory named .ebextensions.
-
+  libpqxx-devel
+postgresql-devel
 
 
 
