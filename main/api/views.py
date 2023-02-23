@@ -9,7 +9,7 @@ import json
 from services.poke_api_services import get_data_from_api
 from services.ebay_api_services import get_data_from_ebay_api
 # from services.ebay_api_services import handle_negative_keywords
-from utils.ebay_data_manipulation import handle_negative_keywords, card_sets1, main_response_data_handler
+from utils.ebay_data_manipulation import handle_negative_keywords, main_response_data_handler
 
 class EmployeeView(View):
     def get(self, request):
