@@ -133,11 +133,13 @@ def main_response_data_handler(param):
     }
     return data
 
-card_sets1 = CardSets.objects.all()[:1] # get the first object in the db
-card_sets1 = serializers.serialize("python", card_sets1) # convert to python object
-# print(card_sets1)
-# print(card_sets1[0]["fields"])
-card_sets1 = card_sets1[0] # get the fields from the first object in the list
+# card_sets1 = CardSets.objects.all()[:1] # get the first object in the db
+# card_sets1 = serializers.serialize("python", card_sets1) # convert to python object
+# # print(card_sets1)
+# # print(card_sets1[0]["fields"])
+# card_sets1 = card_sets1[0] # get the fields from the first object in the list
+
+
 # for cardset in card_sets1:
 #     print(cardset)
 
