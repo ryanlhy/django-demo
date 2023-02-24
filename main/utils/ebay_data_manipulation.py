@@ -50,16 +50,22 @@ def find_which_keywords_exists(sentence, keywords_list1):
 def filter_keywords(param_search_query, ebay_title, param, company_and_grade, variation, ebay_id):
     keywords_list_response = [] # list of keywords that are in the sentence/query
 
-    # find out what psa number exist in search query
-    query_grade = find_which_keywords_exists(param_search_query, company_and_grade)
+    # find out what psa number exist in search query (not in use yet)
+    # query_grade = find_which_keywords_exists(param_search_query, company_and_grade)
 
     grade_condition_keyword = find_which_keywords_exists(ebay_title, company_and_grade)
     # if grade_condition_keyword does not exist in keywords_list_response, then append
     keywords_list_response.append(grade_condition_keyword)
+    print("ebay_title: ", ebay_title)
+    print("grade_condition_keyword: ", grade_condition_keyword)
 
-    variation_keyword = find_which_keywords_exists(ebay_title, variation)
+    # find out what variation exist in search query (not in use yet). 
+    #edge case: only 1 can exist, 
+    # variation_keyword = find_which_keywords_exists(ebay_title, variation)
+    
     proceed = False # default to false, if all keywords exist in ebay_title, then return true
-    if (grade_condition_keyword != False and variation_keyword != False):
+    # determine exact match .. must match all required variables (not implemented fully yet)
+    if (grade_condition_keyword != False):
         # make pokemon api calls and find ... add later
         # extract 3 values from param
         param_list = [param["name"], param["number"], param["set"]["printedTotal"]]
