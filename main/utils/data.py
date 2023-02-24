@@ -1,4 +1,4 @@
-variation = ["holofoil", "reverse holo", "1st edition", "1st ed", "1st"]
+variation = ["holofoil", "reverse holo", "holo", "1st", "1st ed", "1st edition", ]
 
 grading_company = ["psa", "cgc", "bgs", "beckett"]
 grades = ['10', '9.5', '9', '8.5', '8', '7.5', '7', '6.5', '6', '5.5', '5', '4.5', '4', '3.5', '3', '2.5', '2', '1.5', '1']
