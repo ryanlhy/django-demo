@@ -56,8 +56,8 @@ def filter_keywords(param_search_query, ebay_title, param, company_and_grade, va
     grade_condition_keyword = find_which_keywords_exists(ebay_title, company_and_grade)
     # if grade_condition_keyword does not exist in keywords_list_response, then append
     keywords_list_response.append(grade_condition_keyword)
-    print("ebay_title: ", ebay_title)
-    print("grade_condition_keyword: ", grade_condition_keyword)
+    if grade_condition_keyword == False:
+        grade_condition_keyword = 'Raw'
 
     # find out what variation exist in search query (not in use yet). 
     #edge case: only 1 can exist, 
