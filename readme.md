@@ -21,16 +21,14 @@ django-admin startproject main
 django-admin startapp api
 ```
 
-Step 3: Change `default_port` from `8000` to `9000` (in `runserver.py` file).
-
-Step 4: Test run default project
+Step 3: Test run default project
 
 ```sh
 cd main
 python manage.py runserver
 ```
 
-Step 5: Add the commented line in `settings.py` within the `main` project folder.
+Step 4: Add the commented line in `settings.py` within the `main` project folder.
 
 ```python
 INSTALLED_APPS = [
@@ -44,7 +42,7 @@ INSTALLED_APPS = [
 ]
 ```
 
-Step 6: In the same `settings.py` file, comment CSRF middleware
+Step 5: In the same `settings.py` file, comment CSRF middleware
 
 ```python
 MIDDLEWARE = [
@@ -58,37 +56,8 @@ MIDDLEWARE = [
 ]
 ```
 
-## Setup Database
-
-Step 1: Install postgres adapter
+Step 6: Install Necessary Libraries
 
 ```sh
-pip install psycopg2
+pip install django djangorestframework psycopg2 djangorestframework_simplejwt django_extensions requests psycopg2-binary django-environ
 ```
-
-Step 2: Login to PG console and insert the following SQL Commands
-
-```sql
-CREATE DATABASE djangodb;
-CREATE USER djangouser WITH PASSWORD 'password';
-GRANT ALL PRIVILEGES ON DATABASE djangodb TO djangouser;
-```
-
-Step 3: Configure `settings.py` in main project
-
-```python
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'djangodb', 
-        'USER': 'djangouser', 
-        'PASSWORD': 'password',
-        'HOST': '127.0.0.1', 
-        'PORT': '5432',
-    }
-}
-```
-
-You are ready to implement the code.
-
-End.
