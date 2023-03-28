@@ -42,6 +42,7 @@ pip install django djangorestframework psycopg2 djangorestframework_simplejwt dj
 requests
 psycopg2-binary
 django-environ
+pip install django-cors-headers
 Unidecode
 
 Additional Libraries
