@@ -9,7 +9,7 @@ import json
 from services.poke_api_services import get_data_from_api
 from services.ebay_api_services import get_data_from_ebay_api
 # from services.ebay_api_services import handle_negative_keywords
-from utils.ebay_data_manipulation import handle_negative_keywords, main_response_data_handler
+from utils.ebay_data_manipulation import handle_negative_keywords, main_response_data_handler, card_sets2
 
 class EmployeeView(View):
     def get(self, request):
@@ -45,12 +45,10 @@ class CardSetsView(View):
 
 class TestView(View):
     def get(self, request):
-        # param = serialize("json", param)
-        # card_sets1
-        # return JsonResponse({"message": "Hello, world! Test worked","card":card_sets1})
-        # return card_sets1
+        # param = serialize("json", card_sets1)
+        return JsonResponse({"message": "Hello, world! Test worked","card":card_sets2})
         # return JsonResponse(json.loads(serialize("json", card_sets1)), safe=False)
-        return JsonResponse({"message":"param"})
+        # return JsonResponse({"message":"param"})
 
 class TestParamView(View):
     def get(self, request, param):
