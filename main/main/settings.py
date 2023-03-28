@@ -88,13 +88,16 @@ WSGI_APPLICATION = 'main.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': env('DATABASE_ENGINE'),
         'NAME': env('DATABASE_NAME'), 
         'USER': env('DATABASE_USER'), 
         'PASSWORD': env('DATABASE_PASS'),
         # 'HOST': '127.0.0.1', 
         'HOST': env('DATABASE_HOST'), 
-        'PORT': '5432',
+        # 'PORT': '5432', # needed for postgres
+        'TEST': {
+            'NAME': 'ryanlhy$test_data', # for test pythonanywhere data base
+        },
     }
 }
 
