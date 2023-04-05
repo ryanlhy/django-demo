@@ -19,3 +19,7 @@ class CardSets(models.Model):
     updated_at = models.DateTimeField(null=True)
     symbol_image_url = models.CharField(max_length=200, null=True)
     logo_image_url = models.CharField(max_length=200, null=True)
+
+class TestTable(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=100)

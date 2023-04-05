@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.views import View 
-from model.models import Employee, CardSets
+from model.models import Employee, CardSets, TestTable
 from django.core.serializers import serialize
 from .helpers import GetBody
 from django.forms.models import model_to_dict
@@ -50,6 +50,13 @@ class TestView(View):
         return JsonResponse({"message": "Hello, world! Test worked","card":json.loads(serialize("json", card_sets))})
         # return JsonResponse(json.loads(serialize("json", card_sets1)), safe=False)
         # return JsonResponse({"message":"param"})
+    
+    def post(self, request):
+        body = GetBody(request)
+        test = TestTable(name=body["name"], release_date=body["release_date"], set_size=body["set_size"])
+        test.save()        
+        
+        return JsonResponse(json.loads(json.dumps(model_to_dict(test))), safe=False)
 
 class TestParamView(View):
     def get(self, request, param):
