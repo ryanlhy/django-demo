@@ -53,7 +53,7 @@ class TestView(View):
     
     def post(self, request):
         body = GetBody(request)
-        test = TestTable(name=body["name"], release_date=body["release_date"], set_size=body["set_size"])
+        test = TestTable(name=body["name"])
         test.save()        
         
         return JsonResponse(json.loads(json.dumps(model_to_dict(test))), safe=False)
