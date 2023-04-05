@@ -50,7 +50,12 @@ class TestView(View):
         return JsonResponse({"message": "Hello, world! Test worked","card":json.loads(serialize("json", card_sets))})
         # return JsonResponse(json.loads(serialize("json", card_sets1)), safe=False)
         # return JsonResponse({"message":"param"})
-    
+
+class TestView2(View):
+    def get(self, request):
+        test_view2 = TestTable.objects.all()
+        return JsonResponse({"message": "Hello, world! Test worked","card":json.loads(serialize("json", test_view2))})
+ 
     def post(self, request):
         body = GetBody(request)
         test = TestTable(name=body["name"])
