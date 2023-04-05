@@ -10,7 +10,7 @@ from services.ebay_api_services import get_data_from_ebay_api
 
 
 def remove_special_characters(sentence):
-    print("sentence: ", sentence)
+    # print("sentence: ", sentence)
     for character in special_characters:
         sentence = sentence.replace(character, "")
     return sentence
@@ -38,7 +38,7 @@ def find_keywords(sentence, keywords_list):
     words = sentence.lower()
     for keyword in keywords_list:
         if keyword not in words:
-            print("keyword not in words: ", keyword, words)
+            # print("keyword not in words: ", keyword, words)
             return False
     return True
 
@@ -126,8 +126,8 @@ def main_match_exact_keywords(ebay_data, param):
 
             # if filter_keywords_result["keyword_list"] not in keywords_list_response:
             # keywords_list_response += (filter_keywords_result["keyword_list"])
-    print("ebay_id_filtered:")
-    print(ebay_id_filtered)
+    # print("ebay_id_filtered:")
+    # print(ebay_id_filtered)
     return {"ebay_id_filtered": ebay_id_filtered, "keywords_list_response": keywords_list_response}
 
 # function that returns a list of keywords that exist in the ebay_title
@@ -138,10 +138,10 @@ def main_match_exact_keywords(ebay_data, param):
 
 
 def main_response_data_handler(param):
-    print(param["search"])
-    print(type(param["search"]))
+    # print(param["search"])
+    # print(type(param["search"]))
     search_param = remove_special_characters(str(param["search"]))
-    print("search_param: ", search_param)
+    # print("search_param: ", search_param)
     ebay_data = get_data_from_ebay_api(search_param)
     keywords_list_response = []  # list of keywords that are in the sentence/query
     # check if "searchObj" is in param aka the FE is sending the searchObj
@@ -166,9 +166,9 @@ def main_response_data_handler(param):
     return data
 
 # card_sets1 = CardSets.objects.all()[:1] # get the first object in the db
-card_sets1 = CardSets.objects.all() # get the first object in the db
-card_sets2 = serializers.serialize("python", card_sets1) # convert to python object
-print(card_sets2)
+# card_sets1 = CardSets.objects.all() # get the first object in the db
+# card_sets2 = serializers.serialize("python", card_sets1) # convert to python object
+# print(card_sets2)
 # print(card_sets1[0]["fields"])
 # print("printing")
 # card_sets1 = card_sets1[0] # get the fields from the first object in the list
