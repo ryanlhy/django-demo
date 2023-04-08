@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from api.views import EmployeeView
-from api.views import PokemonView, TestView, EbayView, CardSetsView, TestParamView, TestView2
+from api.views import PokemonView, TestView, EbayView, CardSetsView, TestParamView, TestView2, CustomerView, CartView, CartDetailsView, OrdersView, OrderDetailsView
 from rest.views import EmployeeViewSet, RegisterUsersView
 from rest_framework import routers
 from rest_framework_simplejwt import views as jwt_views
@@ -33,6 +33,13 @@ urlpatterns = [
     path('user/signup/', RegisterUsersView.as_view(), name="user-signup"),
     path('pokemon/<path:param>/', PokemonView.as_view()), # using default pokemon api
     path('ebay/<path:param>/', EbayView.as_view()), # using default pokemon api
+    #check all tables
+    path('customer/', CustomerView.as_view()), 
+    path('cart/', CartView.as_view()), 
+    path('cartdetails/', CartDetailsView.as_view()), 
+    path('orders/', OrdersView.as_view()), 
+    path('orderdetails/', OrderDetailsView.as_view()), 
+    #for testing
     path('set/', CardSetsView.as_view()), # testview for testing
     path('test/', TestView.as_view()), # testview for testing
     path('test2/', TestView2.as_view()), # testview2 for testing

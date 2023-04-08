@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.views import View 
-from model.models import Employee, CardSets, TestTable
+from model.models import Employee, CardSets, TestTable, Customer, Cart, CartDetails, Orders, OrderDetails
 from django.core.serializers import serialize
 from .helpers import GetBody
 from django.forms.models import model_to_dict
@@ -42,7 +42,32 @@ class CardSetsView(View):
     def get(self, request):
         card_sets = CardSets.objects.all()
         return JsonResponse(json.loads(serialize("json", card_sets)), safe=False)
+# check all tables
+class CustomerView(View):
+    def get(self, request):
+        customers = Customer.objects.all()
+        return JsonResponse(json.loads(serialize("json", customers)), safe=False)
 
+class CartView(View):
+    def get(self, request):
+        carts = Cart.objects.all()
+        return JsonResponse(json.loads(serialize("json", carts)), safe=False)
+
+class CartDetailsView(View):
+    def get(self, request):
+        cart_details = CartDetails.objects.all()
+        return JsonResponse(json.loads(serialize("json", cart_details)), safe=False)
+
+class OrdersView(View):
+    def get(self, request):
+        orders = Orders.objects.all()
+        return JsonResponse(json.loads(serialize("json", orders)), safe=False)
+
+class OrderDetailsView(View):
+    def get(self, request):
+        order_details = OrderDetails.objects.all()
+        return JsonResponse(json.loads(serialize("json", order_details)), safe=False)
+        
 class TestView(View):
     def get(self, request):
         card_sets = CardSets.objects.all()
