@@ -54,7 +54,7 @@ class CartDetails(models.Model):
 class Orders(models.Model):
     id = models.AutoField(primary_key=True)
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='orders')
-    order_details = models.TextField()
+    order_details = models.ForeignKey(OrderDetails, on_delete=models.CASCADE, related_name='orders')
     total = models.DecimalField(max_digits=10, decimal_places=2)
     date_created = models.DateTimeField(auto_now_add=True)
 
