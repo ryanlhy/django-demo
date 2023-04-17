@@ -82,3 +82,10 @@ pip install djangorestframework
 
 to activate djangoenv
 source ./djangoenv/Scripts/Activate
+
+To initialise tables
+python main/manage.py dumpdata model.CardSets --indent 4 > cardsets.json
+python main/manage.py dumpdata model.CardSets --indent 4 --output card_sets.json
+
+python main/manage.py loaddata fixtures/card_sets.json --app model.CardSets
+python main/manage.py loaddata cardsets1.json 
