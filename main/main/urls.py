@@ -28,6 +28,7 @@ router.register(r'rest/employees', EmployeeViewSet)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)), # using rest_framework
+    # employees
     path('employees/', EmployeeView.as_view()), # using default django view
     path('employees/create/', EmployeeCreateView.as_view()),
     path('employees/<int:employee_id>/', UpdateEmployeeView.as_view(), name='employee-update'),
