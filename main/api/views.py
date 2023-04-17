@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseNotAllowed, HttpResponse
 from django.views import View 
 from model.models import Employee, CardSets, TestTable, Customer, Cart, CartDetails, Orders, OrderDetails
 from django.core.serializers import serialize
@@ -10,7 +10,6 @@ from services.poke_api_services import get_data_from_api
 from services.ebay_api_services import get_data_from_ebay_api
 # from services.ebay_api_services import handle_negative_keywords
 from utils.ebay_data_manipulation import handle_negative_keywords, main_response_data_handler
-from django.http import HttpResponse
 
 class EmployeeView(View):
     def get(self, request):
@@ -23,6 +22,22 @@ class EmployeeCreateView(View):
         employee = Employee(name=body["name"], job_title=body["job_title"], income=body["income"])
         employee.save()
         return JsonResponse(json.loads(json.dumps(model_to_dict(employee))), safe=False)
+
+class UpdateEmployeeView(View):
+    def put(self, request, employee_id):
+        if request.method == 'PUT':
+            try:
+                employee = Employee.objects.get(id=employee_id)
+                body = json.loads(request.body)
+                employee.name = body.get('name', employee.name)
+                employee.job_title = body.get('job_title', employee.job_title)
+                employee.income = body.get('income', employee.income)
+                employee.save()
+                return JsonResponse({'success': True})
+            except Employee.DoesNotExist:
+                return JsonResponse({'success': False, 'message': 'Employee not found'}, status=404)
+        else:
+            return HttpResponseNotAllowed(['PUT'])
 
 class DeleteEmployeeView(View):
     def delete(self, request, employee_id):
