@@ -93,11 +93,11 @@ class OrdersView(View):
         orders = Orders.objects.all()
         return JsonResponse(json.loads(serialize("json", orders)), safe=False)
 
+class OrdersCreateView(View):
     def post(self, request):
         body = GetBody(request)
         orders = Orders(customer=body["customer"], total=body["total"], date_created=body["date_created"], notes=body["notes"])
         orders.save()        
-
         return JsonResponse(json.loads(json.dumps(model_to_dict(employee))), safe=False)
 
 class OrderDetailsView(View):
