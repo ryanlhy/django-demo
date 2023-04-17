@@ -29,7 +29,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)), # using rest_framework
     path('employees/', EmployeeView.as_view()), # using default django view
-    path('employees/create', EmployeeView.as_view()),
+    path('employees/create/', EmployeeCreateView.as_view()),
     path('employees/<int:employee_id>/', DeleteEmployeeView.as_view(), name='employee-delete'),
     path('api/token/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('user/signup/', RegisterUsersView.as_view(), name="user-signup"),
