@@ -16,12 +16,21 @@ class EmployeeView(View):
         all_employees = Employee.objects.all()
         return JsonResponse(json.loads(serialize("json", all_employees)), safe=False)
 
+class EmployeeCreateView(View):
     def post(self, request):
         body = GetBody(request)
         employee = Employee(name=body["name"], job_title=body["job_title"], income=body["income"])
-        employee.save()        
-        
+        employee.save()
         return JsonResponse(json.loads(json.dumps(model_to_dict(employee))), safe=False)
+
+class DeleteEmployeeView(View):
+    def delete(self, request, employee_id):
+        try:
+            employee = Employee.objects.get(id=employee_id)
+            employee.delete()
+            return HttpResponse(status=204)
+        except Employee.DoesNotExist:
+            return HttpResponse(status=404) 
         
 class PokemonView(View):
     def get(self, request, param):
@@ -62,6 +71,13 @@ class OrdersView(View):
     def get(self, request):
         orders = Orders.objects.all()
         return JsonResponse(json.loads(serialize("json", orders)), safe=False)
+
+    def post(self, request):
+        body = GetBody(request)
+        orders = Orders(customer=body["customer"], total=body["total"], date_created=body["date_created"], notes=body["notes"])
+        orders.save()        
+
+        return JsonResponse(json.loads(json.dumps(model_to_dict(employee))), safe=False)
 
 class OrderDetailsView(View):
     def get(self, request):
