@@ -14,8 +14,8 @@ from django.db.models import Field
 
 # Get a list of all the fields in the Employee model
 employee_fields = Employee._meta.get_fields()
-# Filter out the fields that are not columns
-column_names = [field.name for field in employee_fields if isinstance(field, Field)]
+# Filter out the fields that are not columns, not pk key
+employee_field_column_names = [field.name for field in employee_fields if isinstance(field, Field)]
 
 class EmployeeView(View):
     def get(self, request):
@@ -35,7 +35,7 @@ class UpdateEmployeeView(View):
             try:
                 employee = Employee.objects.get(id=employee_id)
                 body = json.loads(request.body)
-                for column_name in column_names:
+                for column_name in employee_field_column_names:
                     setattr(employee, column_name, body.get(column_name, getattr(employee, column_name)))
                 employee.save()
                 return JsonResponse({'success': True})
