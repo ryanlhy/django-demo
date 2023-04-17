@@ -10,6 +10,12 @@ from services.poke_api_services import get_data_from_api
 from services.ebay_api_services import get_data_from_ebay_api
 # from services.ebay_api_services import handle_negative_keywords
 from utils.ebay_data_manipulation import handle_negative_keywords, main_response_data_handler
+from django.db.models import Field
+
+# Get a list of all the fields in the Employee model
+employee_fields = Employee._meta.get_fields()
+# Filter out the fields that are not columns
+column_names = [field.name for field in employee_fields if isinstance(field, Field)]
 
 class EmployeeView(View):
     def get(self, request):
@@ -29,9 +35,8 @@ class UpdateEmployeeView(View):
             try:
                 employee = Employee.objects.get(id=employee_id)
                 body = json.loads(request.body)
-                employee.name = body.get('name', employee.name)
-                employee.job_title = body.get('job_title', employee.job_title)
-                employee.income = body.get('income', employee.income)
+                for column_name in column_names:
+                    setattr(employee, column_name, body.get(column_name, getattr(employee, column_name)))
                 employee.save()
                 return JsonResponse({'success': True})
             except Employee.DoesNotExist:
