@@ -90,7 +90,7 @@ class CartDetailsView(View):
 
 class OrdersView(View):
     def get(self, request):
-        orders = Orders.objects.all()
+        orders = Orders.objects.all()   
         return JsonResponse(json.loads(serialize("json", orders)), safe=False)
 
 class OrdersCreateView(View):

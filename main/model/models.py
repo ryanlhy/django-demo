@@ -26,9 +26,9 @@ class TestTable(models.Model):
 
 class Customer(models.Model):
     id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, blank=True, null=True)
     email = models.CharField(max_length=100)
-    address = models.CharField(max_length=100)
+    address = models.CharField(max_length=100, blank=True, null=True)
     uid = models.CharField(max_length=100)
     signup_date = models.DateTimeField(auto_now_add=True)
     signin_date = models.DateTimeField(null=True, blank=True)

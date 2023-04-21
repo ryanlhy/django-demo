@@ -18,28 +18,34 @@ from django.urls import path, include
 from api.views import EmployeeView, EmployeeCreateView, UpdateEmployeeView, DeleteEmployeeView
 from api.views import PokemonView, TestView, EbayView, CardSetsView, TestParamView, TestView2, CustomerView, CartView, CartDetailsView, OrderDetailsView
 from api.views import OrdersView, OrdersCreateView
-from rest.views import EmployeeViewSet, RegisterUsersView
+from rest.views import EmployeeViewSet, RegisterUsersView, CartViewSet, CustomerViewSet, TestTableViewSet
 from rest_framework import routers
 from rest_framework_simplejwt import views as jwt_views
 
 router = routers.DefaultRouter()
 
 router.register(r'rest/employees', EmployeeViewSet)
+router.register(r'employees', EmployeeViewSet)
+router.register(r'cart1', CartViewSet)
+router.register(r'testtable', TestTableViewSet)
+router.register(r'customer', CustomerViewSet)
+
+router.register(r'myother', EmployeeViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)), # using rest_framework
     # employees
-    path('employees/', EmployeeView.as_view()), # using default django view
-    path('employees/create/', EmployeeCreateView.as_view()),
-    path('employees/<int:employee_id>/', UpdateEmployeeView.as_view(), name='employee-update'),
-    path('employees/<int:employee_id>/', DeleteEmployeeView.as_view(), name='employee-delete'),
+    # path('employees/', EmployeeView.as_view()), # using default django view
+    # path('employees/create/', EmployeeCreateView.as_view()),
+    # path('employees/<int:employee_id>/', UpdateEmployeeView.as_view(), name='employee-update'),
+    # path('employees/<int:employee_id>/', DeleteEmployeeView.as_view(), name='employee-delete'),
     path('api/token/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('user/signup/', RegisterUsersView.as_view(), name="user-signup"),
     path('pokemon/<path:param>/', PokemonView.as_view()), # using default pokemon api
     path('ebay/<path:param>/', EbayView.as_view()), # using default pokemon api
     #check all tables
-    path('customer/', CustomerView.as_view()), 
+    # path('customer/', CustomerView.as_view()), 
     path('cart/', CartView.as_view()), 
     path('cartdetails/', CartDetailsView.as_view()), 
     path('orders/', OrdersView.as_view()), 

@@ -1,16 +1,29 @@
 from django.shortcuts import render
-from model.models import Employee
+from model.models import Employee, Customer, Cart, TestTable
 from rest_framework import generics, permissions, status, viewsets
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
-from .serializers import EmployeeSerializer, UserSerializer
+from .serializers import EmployeeSerializer, UserSerializer, CustomerSerializer, CartSerializer, TestTableSerializer
 
 class EmployeeViewSet(viewsets.ModelViewSet):
     queryset = Employee.objects.all()
     serializer_class = EmployeeSerializer
+    lookup_field = 'id'
     permission_classes = [permissions.IsAuthenticated] # Could be [permissions.IsAuthenticated]
+
+class CustomerViewSet(viewsets.ModelViewSet):
+    queryset = Customer.objects.all()
+    serializer_class = CustomerSerializer
+
+class CartViewSet(viewsets.ModelViewSet):
+    queryset = Cart.objects.all()
+    serializer_class = CartSerializer
+
+class TestTableViewSet(viewsets.ModelViewSet):
+    queryset = TestTable.objects.all()
+    serializer_class = TestTableSerializer
 
 class RegisterUsersView(generics.ListCreateAPIView):
     """
@@ -34,4 +47,7 @@ class RegisterUsersView(generics.ListCreateAPIView):
         new_user = User.objects.create_user(
             username=username, password=password, email=email
         )
-        return Response(data=new_user, status=status.HTTP_201_CREATED)
+        # Serialize the new user object and include it in the response
+        # serializer = UserSerializer(new_user)
+        return Response(status=status.HTTP_201_CREATED)
+        # return Response(data=new_user, status=status.HTTP_201_CREATED)
