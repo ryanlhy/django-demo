@@ -18,7 +18,7 @@ from django.urls import path, include
 from api.views import EmployeeView, EmployeeCreateView, UpdateEmployeeView, DeleteEmployeeView
 from api.views import PokemonView, TestView, EbayView, CardSetsView, TestParamView, TestView2, CustomerView, CartView, CartDetailsView, OrderDetailsView
 from api.views import OrdersView, OrdersCreateView
-from rest.views import EmployeeViewSet, RegisterUsersView, CartViewSet, CustomerViewSet, TestTableViewSet
+from rest.views import EmployeeViewSet, RegisterUsersView, CartViewSet, CartDetailsViewSet, CustomerViewSet, TestTableViewSet
 from rest_framework import routers
 from rest_framework_simplejwt import views as jwt_views
 
@@ -27,6 +27,7 @@ router = routers.DefaultRouter()
 router.register(r'rest/employees', EmployeeViewSet)
 router.register(r'employees', EmployeeViewSet)
 router.register(r'cart1', CartViewSet)
+router.register(r'cart-details', CartDetailsViewSet)
 router.register(r'testtable', TestTableViewSet)
 router.register(r'customer', CustomerViewSet)
 

@@ -1,4 +1,4 @@
-from model.models import Employee, Customer, Cart, TestTable
+from model.models import Employee, Customer, Cart, TestTable, CartDetails
 from rest_framework import serializers
 from django.contrib.auth.models import User
 
@@ -20,6 +20,11 @@ class CartSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Cart
         fields = ['id', 'customer', 'total', 'last_updated', 'notes']
+
+class CartDetailsSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = CartDetails
+        fields = ['id', 'cart', 'ebay_item_number', 'bid_amount', 'name', 'pokemon_id', 'grade', 'date_added']
 
 class TestTableSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:

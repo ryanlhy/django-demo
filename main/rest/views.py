@@ -1,11 +1,11 @@
 from django.shortcuts import render
-from model.models import Employee, Customer, Cart, TestTable
+from model.models import Employee, Customer, Cart, TestTable, CartDetails
 from rest_framework import generics, permissions, status, viewsets
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
-from .serializers import EmployeeSerializer, UserSerializer, CustomerSerializer, CartSerializer, TestTableSerializer
+from .serializers import EmployeeSerializer, UserSerializer, CustomerSerializer, CartSerializer, TestTableSerializer, CartDetailsSerializer
 
 class EmployeeViewSet(viewsets.ModelViewSet):
     queryset = Employee.objects.all()
@@ -20,6 +20,10 @@ class CustomerViewSet(viewsets.ModelViewSet):
 class CartViewSet(viewsets.ModelViewSet):
     queryset = Cart.objects.all()
     serializer_class = CartSerializer
+
+class CartDetailsViewSet(viewsets.ModelViewSet):
+    queryset = CartDetails.objects.all()
+    serializer_class = CartDetailsSerializer
 
 class TestTableViewSet(viewsets.ModelViewSet):
     queryset = TestTable.objects.all()
