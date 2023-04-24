@@ -25,6 +25,13 @@ class CartDetailsViewSet(viewsets.ModelViewSet):
     queryset = CartDetails.objects.all()
     serializer_class = CartDetailsSerializer
 
+    def get_queryset(self): # filter by cart_id
+        queryset = super().get_queryset()
+        cart_id = self.request.query_params.get('cart_id', None)
+        if cart_id is not None:
+            queryset = queryset.filter(cart=cart_id)
+        return queryset
+
 class TestTableViewSet(viewsets.ModelViewSet):
     queryset = TestTable.objects.all()
     serializer_class = TestTableSerializer
