@@ -26,7 +26,7 @@ router = routers.DefaultRouter()
 
 router.register(r'rest/employees', EmployeeViewSet)
 router.register(r'employees', EmployeeViewSet)
-router.register(r'cart1', CartViewSet)
+router.register(r'cart', CartViewSet)
 router.register(r'cart-details', CartDetailsViewSet)
 router.register(r'testtable', TestTableViewSet)
 router.register(r'customer', CustomerViewSet)
@@ -47,7 +47,7 @@ urlpatterns = [
     path('ebay/<path:param>/', EbayView.as_view()), # using default pokemon api
     #check all tables
     # path('customer/', CustomerView.as_view()), 
-    path('cart/', CartView.as_view()), 
+    path('cart1/', CartView.as_view()), 
     path('cartdetails/', CartDetailsView.as_view()), 
     path('orders/', OrdersView.as_view()), 
     path('orderdetails/', OrderDetailsView.as_view()), 
