@@ -108,7 +108,7 @@ def main_match_exact_keywords(ebay_data, param):
     # ebay_id = param["searchObj"]["itemId"][0]
     ebay_id_filtered = []
     keywords_list_response = {}  # list of keywords that are in the sentence/query
-
+    print("ebay_data: ", ebay_data)
     for index, item in enumerate(ebay_data):
         title = item["title"][0].lower()
         ebay_id = item["itemId"][0]
@@ -145,7 +145,7 @@ def main_response_data_handler(param):
     ebay_data = get_data_from_ebay_api(search_param)
     keywords_list_response = []  # list of keywords that are in the sentence/query
     # check if "searchObj" is in param aka the FE is sending the searchObj
-    if "searchObj" in param:
+    if "searchObj" in param and len(ebay_data) != 0:
         filter_keywords_result = main_match_exact_keywords(ebay_data, param)
         # filter the data
         exact_match = filter_keywords_result["ebay_id_filtered"]
