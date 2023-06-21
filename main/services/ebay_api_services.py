@@ -7,7 +7,7 @@ maxEntries = 10
 #https://svcs.ebay.com/services/search/FindingService/v1?OPERATION-NAME=findItemsByKeywords&SERVICE-VERSION=1.0.0&SECURITY-APPNAME={appid}&RESPONSE-DATA-FORMAT=JSON&REST-PAYLOAD&paginationInput.entriesPerPage=100&keywords=pikachu%22
 def get_data_from_ebay_api(keyword, maxEntries=100):
     url = (
-        "http://svcs.ebay.com/services/search/FindingService/v1?"
+        "https://svcs.ebay.com/services/search/FindingService/v1?"
         f"OPERATION-NAME=findItemsByKeywords&"
         f"SERVICE-VERSION=1.0.0&"
         f"SECURITY-APPNAME={appId}&"
@@ -16,7 +16,7 @@ def get_data_from_ebay_api(keyword, maxEntries=100):
         f"paginationInput.entriesPerPage={maxEntries}&"
         f"keywords={keyword}"
     )
-
+    
     response = requests.get(url)
     try:
         if response.status_code == 200:
