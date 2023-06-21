@@ -92,11 +92,10 @@ DATABASES = {
         'NAME': env('DATABASE_NAME'), 
         'USER': env('DATABASE_USER'), 
         'PASSWORD': env('DATABASE_PASS'),
-        # 'HOST': '127.0.0.1', 
         'HOST': env('DATABASE_HOST'), 
-        # 'PORT': '5432', # needed for postgres
+        'PORT': env('DATABASE_PORT'), # needed for postgres
         'TEST': {
-            'NAME': 'ryanlhy$test_data', # for test pythonanywhere data base
+            'NAME': 'ryanlhy$test_data', # for test pythonanywhere data base, comment if needed
         },
     }
 }
