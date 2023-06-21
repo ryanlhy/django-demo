@@ -141,7 +141,7 @@ def main_response_data_handler(param):
     # print(param["search"])
     # print(type(param["search"]))
     search_param = remove_special_characters(str(param["search"]))
-    # print("search_param: ", search_param)
+    search_param = ' '.join(search_param.split()) # remove extra spaces
     ebay_data = get_data_from_ebay_api(search_param)
     keywords_list_response = []  # list of keywords that are in the sentence/query
     # check if "searchObj" is in param aka the FE is sending the searchObj
